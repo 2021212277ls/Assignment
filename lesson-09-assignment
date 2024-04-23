@@ -1,1 +1,24 @@
+import jieba
+from jieba import analyse
 
+# 读取指定文件中的前16行文本
+def read_file_lines(filename, num_lines=16):
+    with open(filename, 'r', encoding='utf-8') as file:
+        lines = [next(file).strip() for _ in range(num_lines)]
+    return '\n'.join(lines)
+
+# 提取关键词
+def extract_keywords(text, top_k=5):
+    keywords = jieba.analyse.extract_tags(text, topK=top_k)
+    return keywords
+
+# 文件名
+filename = "19980101-01-001-001.txt"
+
+# 读取文件中的前16行文本
+text = read_file_lines(filename, num_lines=16)
+
+# 提取关键词
+keywords = extract_keywords(text, top_k=5)
+
+print("提取的关键词：", keywords)
